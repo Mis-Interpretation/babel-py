@@ -90,7 +90,12 @@ class ChatHistory:
             max_recent_messages = get_config().max_recent_messages
         self.max_recent_messages = max_recent_messages
         self.auto_save = auto_save
-        self.history_file = Path(history_file) if history_file else Path("chat_history.json")
+        if history_file:
+            self.history_file = Path(history_file)
+        else:
+            # Create path relative to this module's location
+            module_dir = Path(__file__).parent
+            self.history_file = module_dir / "chat_history.json"
         
         # Thread-safe operations
         self._lock = Lock()
@@ -99,9 +104,11 @@ class ChatHistory:
         self._messages: List[ChatMessage] = []
         self._sessions: Dict[str, List[str]] = {}  # session_id -> [message_ids]
         
-        # Load existing history if available
+        # Check if history file exists and create/load accordingly
         if self.history_file.exists():
             self._load_history()
+        else:
+            self._create_empty_history_file()
     
     def add_message(self, 
                    role: str, 
@@ -276,8 +283,11 @@ class ChatHistory:
         """
         if filename is None:
             filename = f"chat_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        
-        export_path = Path(filename)
+            # Create export file relative to this module's location
+            module_dir = Path(__file__).parent
+            export_path = module_dir / filename
+        else:
+            export_path = Path(filename)
         
         with self._lock:
             export_data = {
@@ -369,6 +379,25 @@ class ChatHistory:
                 if not self._sessions[session_id]:
                     del self._sessions[session_id]
     
+    def _create_empty_history_file(self):
+        """Create an empty history file with initial structure."""
+        try:
+            initial_data = {
+                "max_recent_messages": self.max_recent_messages,
+                "auto_save": self.auto_save,
+                "last_saved": datetime.now().isoformat(),
+                "sessions": {},
+                "messages": []
+            }
+            
+            with open(self.history_file, 'w', encoding='utf-8') as f:
+                json.dump(initial_data, f, indent=2, ensure_ascii=False)
+            
+            print(f"✅ Created new chat history file: {self.history_file}")
+            
+        except Exception as e:
+            print(f"❌ Error creating chat history file: {e}")
+
     def _save_history(self):
         """Save history to file."""
         try:
@@ -458,8 +487,8 @@ if __name__ == "__main__":
     print(f"\nStatistics:")
     print(json.dumps(stats, indent=2))
     
-    # Test export
-    export_file = history.export_history("test_export.json")
+    # Test export (let it create the file in the module's directory)
+    export_file = history.export_history()  # Use default filename
     print(f"\nExported to: {export_file}")
     
     print("\n✅ Chat History test completed!") 

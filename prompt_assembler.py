@@ -22,7 +22,14 @@ class PromptAssembler:
         Args:
             prompts_folder (str): Path to the folder containing prompt files
         """
-        self.prompts_folder = Path(prompts_folder)
+        if os.path.isabs(prompts_folder):
+            # Absolute path provided
+            self.prompts_folder = Path(prompts_folder)
+        else:
+            # Relative path - make it relative to this module's location
+            module_dir = Path(__file__).parent
+            self.prompts_folder = module_dir / prompts_folder
+        
         self.prompts_cache: Dict[str, str] = {}
         self._ensure_prompts_folder()
     

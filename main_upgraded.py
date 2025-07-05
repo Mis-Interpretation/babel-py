@@ -41,7 +41,7 @@ async def chat_endpoint(websocket: WebSocket):
     try:
         while canReceiveInput:
             data = await websocket.receive_text()
-            print(f"Received from client: {data}")
+            # print(f"Received from client: {data}")
 
             # Parse message data
             try:
