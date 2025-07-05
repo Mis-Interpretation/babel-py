@@ -3,6 +3,7 @@
 from config import get_config
 from fastapi import FastAPI, WebSocket
 from typing import Dict, Optional
+import json
 from openai_service import OpenAIService
 
 # Get configuration instance (this loads .env with force override)
@@ -27,6 +28,23 @@ async def chat_endpoint(websocket: WebSocket):
             data = await websocket.receive_text()
             print(f"Received from client: {data}")
 
+            # Parse message data (could be JSON with screenshot or plain text)
+            try:
+                message_data = json.loads(data)
+                user_message = message_data.get("text", "")
+                screenshot_base64 = message_data.get("screenshot")
+                
+                if screenshot_base64:
+                    print(f"Received message with screenshot (length: {len(screenshot_base64)})")
+                else:
+                    print("Received text-only message")
+                    
+            except json.JSONDecodeError:
+                # Fallback to plain text for backward compatibility
+                user_message = data
+                screenshot_base64 = None
+                print("Received plain text message")
+
             # --- OpenAI Integration ---
             if not config.is_api_configured:
                 response_text = "⚠️ OpenAI API key not configured. Please check your .env file."
@@ -35,8 +53,9 @@ async def chat_endpoint(websocket: WebSocket):
                 try:
                     # Send user message to OpenAI and get response
                     response_text = await openai_service.get_chat_response(
-                        user_message=data,
-                        system_message="You are a helpful assistant. Provide clear and concise responses.",
+                        user_message=user_message,
+                        system_message="You are a helpful assistant. Provide clear and concise responses. If you receive a screenshot, analyze it and describe what you see.",
+                        image_base64=screenshot_base64,
                         temperature=0.7,
                         max_tokens=1000
                     )

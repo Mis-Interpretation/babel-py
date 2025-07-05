@@ -27,7 +27,7 @@ class OpenAIService:
     
     async def send_chat_request(
         self, 
-        messages: List[Dict[str, str]], 
+        messages: List[Dict[str, Any]], 
         temperature: float = 0.7,
         max_tokens: Optional[int] = None,
         timeout: float = 30.0
@@ -79,7 +79,8 @@ class OpenAIService:
         self, 
         user_message: str, 
         system_message: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
+        image_base64: Optional[str] = None,
         **kwargs
     ) -> str:
         """
@@ -88,7 +89,8 @@ class OpenAIService:
         Args:
             user_message (str): The user's message
             system_message (Optional[str]): System message to set context
-            conversation_history (Optional[List[Dict[str, str]]]): Previous conversation
+            conversation_history (Optional[List[Dict[str, Any]]]): Previous conversation
+            image_base64 (Optional[str]): Base64 encoded image to include in the message
             **kwargs: Additional parameters passed to send_chat_request
         
         Returns:
@@ -104,8 +106,20 @@ class OpenAIService:
         if conversation_history:
             messages.extend(conversation_history)
         
-        # Add current user message
-        messages.append({"role": "user", "content": user_message})
+        # Add current user message with optional image
+        if image_base64:
+            # Format for vision models with image
+            user_content = [
+                {"type": "text", "text": user_message},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}
+                }
+            ]
+            messages.append({"role": "user", "content": user_content})
+        else:
+            # Standard text-only message
+            messages.append({"role": "user", "content": user_message})
         
         try:
             response = await self.send_chat_request(messages, **kwargs)
