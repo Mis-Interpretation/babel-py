@@ -1,0 +1,93 @@
+{
+  "max_recent_messages": 10,
+  "auto_save": true,
+  "last_saved": "2025-07-04T23:16:34.967068",
+  "sessions": {
+    "test_session": [
+      "0b79f991-5b61-47ab-aa1e-d7d7abf4200b",
+      "94348158-f404-4a75-8868-7cab399d0313",
+      "3a5ca0b8-1247-4412-a1a9-ba737620e848",
+      "d649876c-228a-491f-8f9d-e5f870506048"
+    ],
+    "09f2b913-c71d-4218-aa5b-9fab3f8af1ca": [
+      "65f473d6-d96a-4da2-ab12-68b2aa320bae",
+      "76e56ff9-e3bf-4e23-a601-4970173135af",
+      "b271a0d4-d979-4b8d-b930-aed605d0f685",
+      "c1ac81da-1d8f-4ec1-a027-5da95ff1dfb6",
+      "f674af6d-f323-4588-98fe-9e62ec440d2b",
+      "e5f7404f-c873-4d39-a3f8-e36efd13a2aa"
+    ]
+  },
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hello!",
+      "timestamp": "2025-07-04T23:08:34.596742",
+      "message_id": "0b79f991-5b61-47ab-aa1e-d7d7abf4200b",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "Hi there! How can I help you?",
+      "timestamp": "2025-07-04T23:08:34.597935",
+      "message_id": "94348158-f404-4a75-8868-7cab399d0313",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "What's the weather like?",
+      "timestamp": "2025-07-04T23:08:34.598923",
+      "message_id": "3a5ca0b8-1247-4412-a1a9-ba737620e848",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "I don't have access to current weather data.",
+      "timestamp": "2025-07-04T23:08:34.599431",
+      "message_id": "d649876c-228a-491f-8f9d-e5f870506048",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "hello, can you see what's on my screen right now?",
+      "timestamp": "2025-07-04T23:15:43.979822",
+      "message_id": "65f473d6-d96a-4da2-ab12-68b2aa320bae",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "I can't see what's on your screen. However, I can help you with questions or issues related to coding or any other topic you have in mind!",
+      "timestamp": "2025-07-04T23:15:46.660901",
+      "message_id": "76e56ff9-e3bf-4e23-a601-4970173135af",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "can you see what's in the image I sent to you?",
+      "timestamp": "2025-07-04T23:16:07.303236",
+      "message_id": "b271a0d4-d979-4b8d-b930-aed605d0f685",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "I can't see the image you've sent, but if you describe it or share any specific code or questions you have, I'd be happy to help!",
+      "timestamp": "2025-07-04T23:16:09.856897",
+      "message_id": "c1ac81da-1d8f-4ec1-a027-5da95ff1dfb6",
+      "metadata": {}
+    },
+    {
+      "role": "user",
+      "content": "okay, chat you see my chat_history.py.what libaries does it use?",
+      "timestamp": "2025-07-04T23:16:31.417588",
+      "message_id": "f674af6d-f323-4588-98fe-9e62ec440d2b",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "Based on the visible code in your `chat_history.py`, the libraries it uses are:\n\n1. `json`\n2. `datetime`\n3. `asyncio`\n4. `pathlib`\n5. `typing` (specifically `Dict`, `List`, `Optional`, `Any`, and `Union`)\n6. A custom library or module named `config` (from `get_config`).\n\nIf you need further details or explanations about the code, feel free to ask!",
+      "timestamp": "2025-07-04T23:16:34.967039",
+      "message_id": "e5f7404f-c873-4d39-a3f8-e36efd13a2aa",
+      "metadata": {}
+    }
+  ]
+}

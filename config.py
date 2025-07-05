@@ -57,6 +57,22 @@ class Config:
             return 8000
     
     @property
+    def max_tokens(self) -> int:
+        """Get maximum tokens for OpenAI responses from environment."""
+        try:
+            return int(os.getenv("MAX_TOKENS", "6000"))
+        except ValueError:
+            return 6000
+    
+    @property
+    def max_recent_messages(self) -> int:
+        """Get maximum number of recent messages to keep in chat history."""
+        try:
+            return int(os.getenv("MAX_RECENT_MESSAGES", "22"))
+        except ValueError:
+            return 22
+    
+    @property
     def is_api_configured(self) -> bool:
         """Check if OpenAI API is properly configured."""
         return bool(
@@ -70,6 +86,8 @@ class Config:
             "openai_model": self.openai_model,
             "server_host": self.server_host,
             "server_port": self.server_port,
+            "max_tokens": self.max_tokens,
+            "max_recent_messages": self.max_recent_messages,
             "api_configured": self.is_api_configured,
             "api_key_preview": f"{self.openai_api_key[:10]}..." if self.is_api_configured else "Not configured"
         }
