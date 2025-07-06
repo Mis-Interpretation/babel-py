@@ -44,6 +44,11 @@ class Config:
         return os.getenv("OPENAI_MODEL", "gpt-4o-mini")
     
     @property
+    def pinecone_api_key(self) -> str:
+        """Get Pinecone API key from environment."""
+        return os.getenv("PINECONE_API_KEY", "")
+    
+    @property
     def server_host(self) -> str:
         """Get server host from environment."""
         return os.getenv("SERVER_HOST", "127.0.0.1")
@@ -125,6 +130,10 @@ def get_openai_model() -> str:
     """Get OpenAI model."""
     return config.openai_model
 
+def get_pinecone_api_key() -> str:
+    """Get Pinecone API key."""
+    return config.pinecone_api_key
+
 if __name__ == "__main__":
     # Test the configuration loading
     print("🔧 Configuration Test")
@@ -138,4 +147,4 @@ if __name__ == "__main__":
     if config.is_api_configured:
         print("✅ Configuration is ready for use!")
     else:
-        print("❌ Please configure your OpenAI API key in .env file") 
+        print("❌ Please configure your OpenAI API key in .env file")

@@ -10,6 +10,11 @@ OPENAI_API_KEY=sk-your-actual-openai-api-key-here
 OPENAI_MODEL=gpt-4o-mini
 ```
 
+### Pinecone Configuration (for RAG pipeline)
+```env
+PINECONE_API_KEY=your-pinecone-api-key-here
+```
+
 ## Optional Variables
 
 ### Server Configuration
@@ -63,4 +68,4 @@ SERVER_PORT=8080
 - If a variable is not set, the default value will be used
 - Invalid values (non-numeric for numeric fields) will fallback to defaults
 - Changes require application restart to take effect
-- Environment variables override any hardcoded values 
+- Environment variables override any hardcoded values
