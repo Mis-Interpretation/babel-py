@@ -1,0 +1,104 @@
+{
+  "unity": {
+    "name": "Unity Documentation",
+    "base_urls": [
+      "https://docs.unity3d.com/ScriptReference/",
+      "https://docs.unity3d.com/Manual/",
+      "https://learn.unity.com/tutorials"
+    ],
+    "discovery_patterns": [
+      "/ScriptReference/",
+      "/Manual/",
+      "/learn/tutorials/"
+    ],
+    "exclude_patterns": [
+      ".pdf",
+      "#",
+      "?",
+      "/search",
+      "/login",
+      "/register"
+    ],
+    "content_selectors": {
+      "main_content": ["div#mainText", "div.section", "div.content", "main", "article"],
+      "title": ["h1", "title", ".page-title"],
+      "code_blocks": ["pre", "code", ".code-example"]
+    },
+    "metadata": {
+      "source": "unity",
+      "engine": "unity3d",
+      "version": "2023.3",
+      "documentation_type": "official"
+    },
+    "rate_limit": {
+      "delay_seconds": 0.5,
+      "max_concurrent": 3
+    }
+  },
+  "future_engines": {
+    "unreal": {
+      "name": "Unreal Engine Documentation",
+      "base_urls": [
+        "https://docs.unrealengine.com/5.3/en-US/"
+      ],
+      "discovery_patterns": [
+        "/en-US/API/",
+        "/en-US/BlueprintAPI/",
+        "/en-US/making-games/"
+      ],
+      "exclude_patterns": [
+        ".pdf",
+        "#",
+        "?",
+        "/search"
+      ],
+      "metadata": {
+        "source": "unreal",
+        "engine": "unreal_engine",
+        "version": "5.3"
+      }
+    },
+    "godot": {
+      "name": "Godot Documentation",
+      "base_urls": [
+        "https://docs.godotengine.org/en/stable/"
+      ],
+      "discovery_patterns": [
+        "/classes/",
+        "/tutorials/",
+        "/getting_started/"
+      ],
+      "metadata": {
+        "source": "godot",
+        "engine": "godot",
+        "version": "4.0"
+      }
+    }
+  },
+  "content_classification": {
+    "api_reference": {
+      "indicators": ["class", "method", "property", "parameter", "API", "reference"],
+      "chunk_strategy": "preserve_structure",
+      "chunk_size": 800,
+      "overlap": 100
+    },
+    "tutorial": {
+      "indicators": ["tutorial", "how to", "getting started", "step", "walkthrough"],
+      "chunk_strategy": "sequential_steps",
+      "chunk_size": 1200,
+      "overlap": 200
+    },
+    "guide": {
+      "indicators": ["guide", "overview", "introduction", "manual", "documentation"],
+      "chunk_strategy": "topic_based",
+      "chunk_size": 1000,
+      "overlap": 150
+    },
+    "code_example": {
+      "indicators": ["example", "sample", "code", "script", "snippet"],
+      "chunk_strategy": "preserve_code_blocks",
+      "chunk_size": 600,
+      "overlap": 50
+    }
+  }
+}
